@@ -3,7 +3,7 @@
 import { tmpdir } from 'os';
 import { promisify } from 'util';
 import Queue from 'bull/lib/queue';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as ouidv4 } from 'uuid';
 import {
   mkdir, writeFile, stat, existsSync, realpath,
 } from 'fs';
@@ -109,7 +109,7 @@ export default class FilesController {
     };
     await mkDirAsync(baseDir, { recursive: true });
     if (type !== VALID_FILE_TYPES.folder) {
-      const localPath = joinPath(baseDir, uuidv4());
+      const localPath = joinPath(baseDir, ouidv4());
       await writeFileAsync(localPath, Buffer.from(base64Data, 'base64'));
       newFile.localPath = localPath;
     }
